@@ -2,7 +2,7 @@ import streamlit as st
 import numpy as np 
 import pandas as pd 
 import seaborn as sns
-# from PIL import Image
+from PIL import Image
 import matplotlib.pyplot as plt
 import streamlit.components.v1 as components
 
@@ -13,22 +13,22 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split
 
 
-# heading
-st.markdown("<h1 style='text-align: center; color: blue;'>DIADETECT</h1>", unsafe_allow_html=True)
+
+
+st.markdown("<h1 style='text-align: center; color: red;'>DIADETECT</h1>", unsafe_allow_html=True)
 st.markdown("<h4 style='text-align: center; color: white;'>...a diabetes detection system</h4><br>", unsafe_allow_html=True)
 
 
 st.write("Diabetes is a chronic disease that occurs when your blood glucose is too high. This application helps to effectively detect if someone has diabetes using Machine Learning and Python" )
 
-
+# image = Image.open('C:/Users/CHIDERA ANI/Desktop/expert_system/db.jpg')
+# st.sidebar.image(image, width=650)
 
 #Get the data
-df = pd.read_csv("diabetes.csv")
+df = pd.read_csv("/diabetes.csv") 
 
-# replacting 0 with nan
+
 df[['Glucose','BloodPressure','SkinThickness','Insulin','BMI']] = df[['Glucose','BloodPressure','SkinThickness','Insulin','BMI']].replace(0,np.NaN)
-
-
 # replacing missing values
 df['Glucose'].fillna(df['Glucose'].mean(), inplace = True)
 
@@ -40,7 +40,6 @@ df['Insulin'].fillna(df['Insulin'].median(), inplace = True)
 
 df['BMI'].fillna(df['BMI'].median(), inplace = True)
 
-# splitting columns
 X = df.drop(columns='Outcome')
 y = df['Outcome']
 
@@ -52,6 +51,7 @@ X =  pd.DataFrame(scaler.fit_transform(X), columns=['Pregnancies', 'Glucose', 'B
 x_train, x_test, y_train, y_test = train_test_split(X, y, test_size = 0.3, random_state = 42, stratify=y)
 
 name = st.text_input('What is your name?')
+
 
 #Get the feature input from the user
 def get_user_input():
@@ -86,11 +86,16 @@ if bt:
     rfmodel = RandomForestClassifier(random_state=1)
     rfmodel.fit(x_train, y_train)
     prediction = rfmodel.predict(user_input)
-    
+    accuracy = accuracy_score(y_test, rfmodel.predict(x_test)) * 100
+    # accuracy = accuracy_score(y_true=y_test, y_pred=prediction)
+    acc = accuracy.format(round(accuracy, 2))
+    st.write(prediction)
 
     if prediction == 1:
         st.write(name,", you either have diabetes or are likely to have it. Please visit the doctor as soon as possible.")
         
+        
     else:
         st.write('Hurray!', name, 'You are diabetes FREE.')
+        
 
