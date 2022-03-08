@@ -14,7 +14,6 @@ from sklearn.model_selection import train_test_split
 
 
 
-
 st.markdown("<h1 style='text-align: center; color: red;'>DIADETECT</h1>", unsafe_allow_html=True)
 st.markdown("<h4 style='text-align: center; color: white;'>...a diabetes detection system</h4><br>", unsafe_allow_html=True)
 
