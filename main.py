@@ -1,14 +1,9 @@
 import streamlit as st 
 import numpy as np 
 import pandas as pd 
-import seaborn as sns
-# from PIL import Image
-import matplotlib.pyplot as plt
 import streamlit.components.v1 as components
 
 # ML Libraries
-from sklearn.metrics import accuracy_score
-from sklearn.ensemble import RandomForestClassifier
 from sklearn.ensemble import GradientBoostingClassifier
 from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split
@@ -74,7 +69,7 @@ X =  pd.DataFrame(scaler.fit_transform(X), columns=['Pregnancies', 'Glucose', 'B
 # Split the dataset into 70% Training set and 30% Testing set
 x_train, x_test, y_train, y_test = train_test_split(X, y, test_size = 0.3, random_state = 1)
 
-name = st.text_input('What is your name?')
+name = st.text_input('What is your name?').capitalize()
 
 #Get the feature input from the user
 def get_user_input():
