@@ -19,7 +19,7 @@ st.markdown("<h1 style='text-align: center; color: blue;'>DIADETECT</h1>", unsaf
 st.markdown("<h4 style='text-align: center; color: white;'>...a diabetes detection system</h4><br>", unsafe_allow_html=True)
 
 
-st.write("Diabetes is a chronic disease that occurs when your blood glucose is too high. This application helps to effectively detect if someone has diabetes using Machine Learning and Python" )
+st.write("Diabetes is a chronic disease that occurs when your blood glucose is too high. This application helps to effectively detect if someone has diabetes using Machine Learning and Python. " )
 
 
 
@@ -103,7 +103,7 @@ def get_user_input():
 user_input = get_user_input()
 
 
-bt = st.button('Get Resultsss')
+bt = st.button('Get Result')
 
 if bt:
     gb = GradientBoostingClassifier(random_state=1)
