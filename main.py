@@ -9,6 +9,7 @@ import streamlit.components.v1 as components
 # ML Libraries
 from sklearn.metrics import accuracy_score
 from sklearn.ensemble import RandomForestClassifier
+from sklearn.ensemble import GradientBoostingClassifier
 from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split
 
@@ -30,26 +31,48 @@ df[['Glucose','BloodPressure','SkinThickness','Insulin','BMI']] = df[['Glucose',
 
 
 # replacing missing values
-df['Glucose'].fillna(df['Glucose'].mean(), inplace = True)
 
-df['BloodPressure'].fillna(df['BloodPressure'].mean(), inplace = True)
+# function to find the mean 
+def median_target(var):   
+    temp = df[df[var].notnull()]
+    temp = round(temp[[var, 'Outcome']].groupby(['Outcome'])[[var]].mean().reset_index(), 1)
+    return temp
 
-df['SkinThickness'].fillna(df['SkinThickness'].median(), inplace = True)
 
-df['Insulin'].fillna(df['Insulin'].median(), inplace = True)
+# Glucose
+df.loc[(df['Outcome'] == 0 ) & (df['Glucose'].isnull()), 'Glucose'] = 110.6
+df.loc[(df['Outcome'] == 1 ) & (df['Glucose'].isnull()), 'Glucose'] = 142.3
 
-df['BMI'].fillna(df['BMI'].median(), inplace = True)
+# Blood pressure
+df.loc[(df['Outcome'] == 0 ) & (df['BloodPressure'].isnull()), 'BloodPressure'] = 70.9
+df.loc[(df['Outcome'] == 1 ) & (df['BloodPressure'].isnull()), 'BloodPressure'] = 75.3
+
+# Skin thickness
+df.loc[(df['Outcome'] == 0 ) & (df['SkinThickness'].isnull()), 'SkinThickness'] = 27.2
+df.loc[(df['Outcome'] == 1 ) & (df['SkinThickness'].isnull()), 'SkinThickness'] = 33.0
+
+# Insulin
+df.loc[(df['Outcome'] == 0 ) & (df['Insulin'].isnull()), 'Insulin'] = 130.3
+df.loc[(df['Outcome'] == 1 ) & (df['Insulin'].isnull()), 'Insulin'] = 206.8
+
+# BMI
+df.loc[(df['Outcome'] == 0 ) & (df['BMI'].isnull()), 'BMI'] = 30.9
+df.loc[(df['Outcome'] == 1 ) & (df['BMI'].isnull()), 'BMI'] = 35.4
+
+
 
 # splitting columns
 X = df.drop(columns='Outcome')
 y = df['Outcome']
 
+
 #scaling
 scaler = StandardScaler()
 X =  pd.DataFrame(scaler.fit_transform(X), columns=['Pregnancies', 'Glucose', 'BloodPressure', 'SkinThickness', 'Insulin', 'BMI', 'DiabetesPedigreeFunction', 'Age'])
 
-# Split the dataset into 75% Training set and 25% Testing set
-x_train, x_test, y_train, y_test = train_test_split(X, y, test_size = 0.3, random_state = 42, stratify=y)
+
+# Split the dataset into 70% Training set and 30% Testing set
+x_train, x_test, y_train, y_test = train_test_split(X, y, test_size = 0.3, random_state = 1)
 
 name = st.text_input('What is your name?')
 
@@ -68,24 +91,24 @@ def get_user_input():
     
     user_data = {'Age': age,
                 'Pregnancies': pregnancies,
-              'Glucose': glucose,
-                 'Blood Pressure': blood_pressure,
-                 'Skin Thickness': skin_thickness,
-                 'Insulin': insulin,
-              'BMI': BMI,
-              'DPF': DPF
+                'Glucose': glucose,
+                'Blood Pressure': blood_pressure,
+                'Skin Thickness': skin_thickness,
+                'Insulin': insulin,
+                'BMI': BMI,
+                'DPF': DPF
                  }
     features = pd.DataFrame(user_data, index=[0])
     return features
 user_input = get_user_input()
 
 
-bt = st.button('Get Result')
+bt = st.button('Get Resultsss')
 
 if bt:
-    rfmodel = RandomForestClassifier(random_state=1)
-    rfmodel.fit(x_train, y_train)
-    prediction = rfmodel.predict(user_input)
+    gb = GradientBoostingClassifier(random_state=1)
+    gb.fit(x_train, y_train)
+    prediction = gb.predict(user_input)
     
 
     if prediction == 1:
