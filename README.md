@@ -1,5 +1,5 @@
 # Diabetes Prediction
-Predict whether or not patients have diabetes using machine learning. 
+Predict whether or not patients have diabetes using machine learning. Deploy model using Streamlit.
 
 ## Dataset 
 Data was obtained from Kaggle [here](https://www.kaggle.com/code/vincentlugat/pima-indians-diabetes-eda-prediction-0-906/data). The target attribute is the column labeled 'Outcome'. Columns in the dataset are explained below:
@@ -17,4 +17,9 @@ Data was obtained from Kaggle [here](https://www.kaggle.com/code/vincentlugat/pi
   - Ensure you use Python 3.
 
 ## Output
+- The best model proved to the Gradient Boosting Classifier with 89.6% accuracy.
 - A website application was built from this project using Streamlit and deployed to Heroku. View [here](https://diadetect.herokuapp.com/)
+
+## Extending this...
+- Try to carry out an extensive EDA and maybe create more features.
+- Try to increase the model accuracy by hyperparameter tuning or other methods.
