@@ -1,7 +1,8 @@
 # Diabetes Prediction
 Predict whether or not patients have diabetes using machine learning. 
+
 ## Dataset 
-Data was obtained from Kaggle [her](https://www.kaggle.com/code/vincentlugat/pima-indians-diabetes-eda-prediction-0-906/data). The target attribute is the column labeled 'Outcome'. Columns in the dataset are explained below:
+Data was obtained from Kaggle [here](https://www.kaggle.com/code/vincentlugat/pima-indians-diabetes-eda-prediction-0-906/data). The target attribute is the column labeled 'Outcome'. Columns in the dataset are explained below:
 - Pregnancies: The number of times the person was pregnant
 - Glucose: This is the concentration of glucose present in the blood (plasma). For a healthy person (a non-diabetic), the normal glucose concentration is between 4.0 to 5.4 mmol/L (72 to 99 mg/dL) and up to 7.8 mmol/L (140 mg/dL) 2 hours after eating.
 - Blood Pressure: Diastolic blood pressure (mm Hg). A normal blood pressure should be less than or equal to 120/80 mmHg.
@@ -11,4 +12,9 @@ Data was obtained from Kaggle [her](https://www.kaggle.com/code/vincentlugat/pim
 - DiabetesPedigreeFunction: A diabetes pedigree function is a function which scores likelihood of diabetes based on family history.
 - Outcome (target variable): 0-no diabetes, 1-has diabetes.
 
+## Requirements
+- Install requirements using `pip install -r requirements.txt`.
+  - Ensure you use Python 3.
 
+## Output
+- A website application was built from this project using Streamlit and deployed to Heroku. View [here](https://diadetect.herokuapp.com/)
