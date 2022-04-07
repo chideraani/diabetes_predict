@@ -14,7 +14,7 @@ st.markdown("<h1 style='text-align: center; color: blue;'>DIADETECT</h1>", unsaf
 st.markdown("<h4 style='text-align: center; color: white;'>...a diabetes detection system</h4><br>", unsafe_allow_html=True)
 
 
-st.write("Diabetes is a chronic disease that occurs when your blood glucose is too high. This application helps to effectively detect if someone has diabetes using Machine Learning and Python. " )
+st.write("Diabetes is a chronic disease that occurs when your blood glucose is too high. This application helps to effectively detect if someone has diabetes using Machine Learning. " )
 
 
 
@@ -69,29 +69,25 @@ X =  pd.DataFrame(scaler.fit_transform(X), columns=['Pregnancies', 'Glucose', 'B
 # Split the dataset into 70% Training set and 30% Testing set
 x_train, x_test, y_train, y_test = train_test_split(X, y, test_size = 0.3, random_state = 1)
 
+x_tr = x_train.loc[:,['Insulin','Glucose','BMI','Age','SkinThickness']]
+
 name = st.text_input('What is your name?').capitalize()
 
 #Get the feature input from the user
 def get_user_input():
 
-    age = st.number_input('Enter your age')
-    pregnancies = st.number_input('How many times have you been pregnant?')
-    glucose = st.number_input('What is your plasma glucose concentration?')
-    blood_pressure = st.number_input('What is your blood pressure in mmHg?')
-    skin_thickness = st.number_input('Enter your skin fold thickness in mm')
     insulin = st.number_input('Enter your insulin 2-Hour serum in mu U/ml')
+    glucose = st.number_input('What is your plasma glucose concentration?')
     BMI = st.number_input('What is your Body Mass Index?')
-    DPF = st.number_input('What is your Diabetes Pedigree Function?')
-      
+    age = st.number_input('Enter your age')
+    skin_thickness = st.number_input('Enter your skin fold thickness in mm')
+
     
-    user_data = {'Age': age,
-                'Pregnancies': pregnancies,
+    user_data = {'Insulin': insulin,
                 'Glucose': glucose,
-                'Blood Pressure': blood_pressure,
-                'Skin Thickness': skin_thickness,
-                'Insulin': insulin,
                 'BMI': BMI,
-                'DPF': DPF
+                'Age': age,
+                'Skin Thickness': skin_thickness,
                  }
     features = pd.DataFrame(user_data, index=[0])
     return features
@@ -102,7 +98,7 @@ bt = st.button('Get Result')
 
 if bt:
     gb = GradientBoostingClassifier(random_state=1)
-    gb.fit(x_train, y_train)
+    gb.fit(x_tr, y_train)
     prediction = gb.predict(user_input)
     
 
